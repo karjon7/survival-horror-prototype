@@ -13,6 +13,31 @@
 outline_size = 5
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="BoxMesh" id="BoxMesh_bhunq"]
+
+[sub_resource type="GDScript" id="GDScript_bhunq"]
+resource_name = "Spin"
+script/source = "extends MeshInstance3D
+
+
+func _process(delta: float) -> void:
+	rotation_degrees.y = wrapf(rotation_degrees.y + 90.0 * delta, 0.0, 360.0)
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhunq"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_riqys"]
+bg_color = Color(0.60038817, 0.60038817, 0.60038817, 0.5)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
 [node name="Player" type="CharacterBody3D" unique_id=1879227099]
 collision_layer = 2
 script = ExtResource("1_r66lb")
@@ -145,6 +170,150 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory/VBoxContainer" unique_id=117351111]
-custom_minimum_size = Vector2(0, 120)
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory/VBoxContainer/MarginContainer" unique_id=948215289]
 layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer" unique_id=1077323105]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1213187504]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer" unique_id=495742205]
+own_world_3d = true
+transparent_bg = true
+size = Vector2i(308, 295)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport" unique_id=39801715]
+mesh = SubResource("BoxMesh_bhunq")
+script = SubResource("GDScript_bhunq")
+
+[node name="CamPivot" type="Node3D" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport" unique_id=1273839158]
+transform = Transform3D(1, 0, 0, 0, 0.90630776, 0.42261827, 0, -0.42261827, 0.90630776, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport/CamPivot" unique_id=702183568]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport/CamPivot/Camera3D" unique_id=1912342860]
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1748126391]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GridContainer" type="GridContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=1198358645]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/h_separation = 5
+theme_override_constants/v_separation = 5
+columns = 3
+
+[node name="PlaceHolderSlot" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1946838306]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot2" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1429966639]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot3" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1662673596]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot4" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1255513143]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot5" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=2136726071]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot6" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1146141087]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot7" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=102566113]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot8" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1639343196]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PlaceHolderSlot9" type="Panel" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=312864524]
+custom_minimum_size = Vector2(75, 75)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bhunq")
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer" unique_id=117351111]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer" unique_id=2035824245]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=350700223]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_riqys")
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer" unique_id=1602595372]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer" unique_id=184911142]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=1142058249]
+layout_mode = 2
+text = "PLACEHOLDER"
+
+[node name="Button2" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=577532185]
+layout_mode = 2
+text = "PLACEHOLDER"
+
+[node name="Button3" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=1563852872]
+layout_mode = 2
+text = "PLACEHOLDER"
+
+[node name="Button4" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=2101501592]
+layout_mode = 2
+text = "PLACEHOLDER"
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1270836816]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer" unique_id=1000839827]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1237220624]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "ITEM NAME (x99)"
+
+[node name="Label2" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1985702912]
+layout_mode = 2
+size_flags_vertical = 3
+text = "ITEM DESCRIPTION"
