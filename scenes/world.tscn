@@ -1,0 +1,142 @@
+[gd_scene format=3 uid="uid://d2yevrqx1goih"]
+
+[ext_resource type="PackedScene" uid="uid://c6mjfweto6028" path="res://prefabs/player.tscn" id="1_rwgxs"]
+[ext_resource type="PackedScene" uid="uid://cv2xvbxuj6wi0" path="res://prefabs/light.tscn" id="2_4wyf3"]
+[ext_resource type="Script" uid="uid://bj6vlq33pqopp" path="res://scripts/interactable_area.gd" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://b55xfkuoepfve" path="res://prefabs/door.tscn" id="4_k0juu"]
+
+[sub_resource type="Gradient" id="Gradient_f3sb7"]
+interpolation_mode = 2
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4flbx"]
+gradient = SubResource("Gradient_f3sb7")
+use_hdr = true
+
+[sub_resource type="Environment" id="Environment_tlwt5"]
+ambient_light_source = 2
+ambient_light_color = Color(0.21176471, 0.2509804, 0.59607846, 1)
+ambient_light_energy = 0.1
+reflected_light_source = 1
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_light_color = Color(0.21176471, 0.2509804, 0.59607846, 1)
+fog_light_energy = 0.02
+fog_density = 0.1
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(0.21176471, 0.2509804, 0.59607846, 1)
+volumetric_fog_sky_affect = 0.0
+adjustment_enabled = true
+adjustment_color_correction = SubResource("GradientTexture1D_4flbx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhunq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_ht1c8"]
+resource_name = "InteractionTest"
+script/source = "extends CSGBox3D
+
+var times_interacted: int = 0
+
+func _on_interactable_area_interacted_with(_interactor: Node3D) -> void:
+	times_interacted += 1
+	
+	var text:= \"Ive been interacted with %s times!\" \\
+		if times_interacted != 1 else \"Ive been interacted with %s time!\"
+	
+	$Label3D.text = text % times_interacted
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhunq"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[node name="World" type="Node3D" unique_id=1312274866]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1533605380]
+environment = SubResource("Environment_tlwt5")
+
+[node name="Player" parent="." unique_id=1879227099 instance=ExtResource("1_rwgxs")]
+
+[node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=153414490]
+use_collision = true
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=2018469004]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -5)
+flip_faces = true
+size = Vector3(14, 5, 12)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=630455692]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 2, -6.5)
+flip_faces = true
+size = Vector3(13, 4, 5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1876059743]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 2, 5.25)
+flip_faces = true
+size = Vector3(4, 4, 7.5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=1023253564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 5)
+flip_faces = true
+size = Vector3(5, 4, 8)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D2" unique_id=53275898]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 1.125, 1.25)
+flip_faces = true
+size = Vector3(1.5, 2.25, 1)
+
+[node name="AreaLight3D2" parent="." unique_id=1571852632 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 5, -8)
+
+[node name="AreaLight3D4" parent="." unique_id=1657204674 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 5, -8)
+
+[node name="AreaLight3D5" parent="." unique_id=1969971909 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 5, -2)
+
+[node name="AreaLight3D7" parent="." unique_id=1249814215 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 5, -2)
+
+[node name="Light" parent="." unique_id=941556963 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 5)
+
+[node name="Light4" parent="." unique_id=174506774 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 4, 5)
+
+[node name="Light2" parent="." unique_id=1682156470 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4, -6.5)
+
+[node name="Light3" parent="." unique_id=101351793 instance=ExtResource("2_4wyf3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, 4, -6.5)
+
+[node name="InteractCube" type="CSGBox3D" parent="." unique_id=63072693]
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -3, 1.2, -8.25)
+size = Vector3(0.5, 0.5, 0.5)
+material = SubResource("StandardMaterial3D_bhunq")
+script = SubResource("GDScript_ht1c8")
+
+[node name="InteractableArea" type="Area3D" parent="InteractCube" unique_id=438176624]
+script = ExtResource("3_4wyf3")
+interactable_name = "Interact Cube"
+metadata/_custom_type_script = "uid://bj6vlq33pqopp"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractCube/InteractableArea" unique_id=1062453357]
+shape = SubResource("BoxShape3D_bhunq")
+
+[node name="Label3D" type="Label3D" parent="InteractCube" unique_id=719422841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5501667, 0)
+billboard = 1
+double_sided = false
+text = "Ive been interacted with 0 times!"
+autowrap_mode = 2
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1403485589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -8.25)
+operation = 2
+use_collision = true
+size = Vector3(7, 1, 1.5)
+
+[node name="Door" parent="." unique_id=1482527046 instance=ExtResource("4_k0juu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.25)
+
+[connection signal="interacted_with" from="InteractCube/InteractableArea" to="InteractCube" method="_on_interactable_area_interacted_with"]

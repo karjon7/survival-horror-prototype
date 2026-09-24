@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://b55xfkuoepfve"]
+
+[ext_resource type="Script" uid="uid://dost5f4af5mvg" path="res://scripts/door.gd" id="1_sum4q"]
+[ext_resource type="Script" uid="uid://bj6vlq33pqopp" path="res://scripts/interactable_area.gd" id="2_qfj2i"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bhunq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhunq"]
+size = Vector3(1.5, 2.25, 0.5)
+
+[sub_resource type="Animation" id="Animation_qfj2i"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorUI/Fade:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorUI/Fade:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_gx6vt"]
+resource_name = "fade_in"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorUI/Fade:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorUI/Fade:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iv2is"]
+resource_name = "fade_out"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DoorUI/Fade:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.5),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DoorUI/Fade:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_08et4"]
+_data = {
+&"RESET": SubResource("Animation_qfj2i"),
+&"fade_in": SubResource("Animation_gx6vt"),
+&"fade_out": SubResource("Animation_iv2is")
+}
+
+[node name="Door" type="Node3D" unique_id=1482527046]
+script = ExtResource("1_sum4q")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=833868216]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+use_collision = true
+size = Vector3(1.5, 2.25, 0.25)
+material = SubResource("StandardMaterial3D_bhunq")
+
+[node name="NavigationLink3D" type="NavigationLink3D" parent="." unique_id=10457861]
+start_position = Vector3(0, 0, -1)
+end_position = Vector3(0, 0, 1)
+
+[node name="InteractableArea" type="Area3D" parent="." unique_id=192899681]
+script = ExtResource("2_qfj2i")
+interactable_name = "Door"
+interact_seconds = 0.5
+metadata/_custom_type_script = "uid://bj6vlq33pqopp"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractableArea" unique_id=400598789]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, 0)
+shape = SubResource("BoxShape3D_bhunq")
+
+[node name="DoorUI" type="CanvasLayer" parent="." unique_id=2012751583]
+layer = 100
+
+[node name="Fade" type="ColorRect" parent="DoorUI" unique_id=669888395]
+visible = false
+modulate = Color(1, 1, 1, 0)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=266804806]
+libraries/ = SubResource("AnimationLibrary_08et4")
+
+[connection signal="interacted_with" from="InteractableArea" to="." method="_on_interactable_area_interacted_with"]

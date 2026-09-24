@@ -1,0 +1,150 @@
+[gd_scene format=3 uid="uid://c6mjfweto6028"]
+
+[ext_resource type="Script" uid="uid://cur1ip7up5y1g" path="res://scripts/player.gd" id="1_r66lb"]
+[ext_resource type="Script" uid="uid://da0h0td65cpne" path="res://scripts/interaction_handler.gd" id="2_1txc5"]
+[ext_resource type="Script" uid="uid://dboo8rvds5ghm" path="res://scripts/ui.gd" id="3_ht1c8"]
+[ext_resource type="Texture2D" uid="uid://b8w4m2rgf1roh" path="res://icon.svg" id="4_1txc5"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bhunq"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bhunq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_bhunq"]
+outline_size = 5
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Player" type="CharacterBody3D" unique_id=1879227099]
+collision_layer = 2
+script = ExtResource("1_r66lb")
+
+[node name="InteractionHandler" type="Node" parent="." unique_id=885783621]
+script = ExtResource("2_1txc5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=672404966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+mesh = SubResource("CapsuleMesh_bhunq")
+
+[node name="StandingCollision" type="CollisionShape3D" parent="." unique_id=1287779190]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bhunq")
+
+[node name="CrouchingCollision" type="CollisionShape3D" parent="." unique_id=1193337688]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_bhunq")
+disabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=607298580]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+fov = 90.0
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Camera3D" unique_id=952521433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0, -0.3)
+light_color = Color(1, 1, 0.85490197, 1)
+shadow_enabled = true
+omni_range = 10.0
+
+[node name="InteractionRayCast" type="RayCast3D" parent="Camera3D" unique_id=554978289]
+unique_name_in_owner = true
+target_position = Vector3(0, 0, -1.5)
+collision_mask = 9
+collide_with_areas = true
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1034527378]
+unique_name_in_owner = true
+process_mode = 3
+script = ExtResource("3_ht1c8")
+
+[node name="HUD" type="MarginContainer" parent="UI" unique_id=1437777121]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Crosshair" type="CenterContainer" parent="UI/HUD" unique_id=1455605159]
+visible = false
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/HUD/Crosshair" unique_id=800910978]
+custom_minimum_size = Vector2(4, 4)
+layout_mode = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="UI/HUD/Crosshair" unique_id=1381684197]
+custom_minimum_size = Vector2(2, 2)
+layout_mode = 2
+mouse_filter = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/HUD" unique_id=445620812]
+layout_mode = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/HUD/VBoxContainer" unique_id=1071885944]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="InteractionProgressBar" type="TextureProgressBar" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=761029113]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 0.59
+fill_mode = 4
+nine_patch_stretch = true
+stretch_margin_left = 25
+stretch_margin_top = 25
+texture_progress = ExtResource("4_1txc5")
+
+[node name="InteractionLabel" type="Label" parent="UI/HUD/VBoxContainer/HBoxContainer" unique_id=596368433]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Interactable Name"
+label_settings = SubResource("LabelSettings_bhunq")
+
+[node name="Inventory" type="Control" parent="UI" unique_id=369187336]
+unique_name_in_owner = true
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="UI/Inventory" unique_id=1841614097]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Inventory" unique_id=1935229810]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer" unique_id=1935316680]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="UI/Inventory/VBoxContainer" unique_id=117351111]
+custom_minimum_size = Vector2(0, 120)
+layout_mode = 2
