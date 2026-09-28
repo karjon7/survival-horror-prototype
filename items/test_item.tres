@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://dpmf8r2tqgqav"]
+
+[ext_resource type="Script" uid="uid://bpy8h1ts4paux" path="res://scripts/item_data.gd" id="1_j6h3p"]
+
+[resource]
+script = ExtResource("1_j6h3p")
+item_name = "Test Item"
+max_stack_size = 4
+metadata/_custom_type_script = "uid://bpy8h1ts4paux"

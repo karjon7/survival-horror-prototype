@@ -5,6 +5,17 @@ var slot_datas: Array[SlotData] = []
 var inventory_size: int = 4
 
 
+func _ready() -> void:
+	pass
+
+
+func has_item(item_data: ItemData) -> bool:
+	for slot in slot_datas:
+		if slot.item_data == item_data: return true
+	
+	return false
+
+
 func add_item(item_data: ItemData, quantity: int = 1) -> int:
 	var remaining: int = quantity
 	
@@ -17,7 +28,7 @@ func add_item(item_data: ItemData, quantity: int = 1) -> int:
 		slot.quantity += amt_to_add
 		remaining -= amt_to_add
 		
-		if remaining == 0: return remaining
+		if remaining < 1: return remaining
 	
 	#Find empty slot datas second
 	for slot in slot_datas:
@@ -27,10 +38,26 @@ func add_item(item_data: ItemData, quantity: int = 1) -> int:
 		slot.item_data = item_data
 		slot.quantity = amt_to_add
 		
-		if remaining == 0: return remaining
+		if remaining < 1: return remaining
 	
 	return remaining
+
+
+func remove_item(item_data: ItemData, quantity: int = 1) -> int:
+	var remaining: int = quantity
+	var reversed_slot_datas: Array[SlotData] = slot_datas.duplicate(true)
+	reversed_slot_datas.reverse()
 	
+	for slot in reversed_slot_datas:
+		if slot.item_data != item_data: continue
+		var amt_to_remove: int = mini(slot.quantity, quantity)
+		
+		slot.quantity -= amt_to_remove
+		remaining -= amt_to_remove
+		
+		if remaining < 1: return remaining
+	
+	return remaining
 
 
 func _set_inventory_size(new_value: int) -> void:
