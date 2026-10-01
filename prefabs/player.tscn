@@ -44,12 +44,15 @@ corner_radius_bottom_left = 3
 collision_layer = 2
 script = ExtResource("1_r66lb")
 
-[node name="InteractionHandler" type="Node" parent="." unique_id=885783621]
+[node name="InteractionHandler" type="Node" parent="." unique_id=2045443146 node_paths=PackedStringArray("inventory_component")]
 script = ExtResource("2_1txc5")
+inventory_component = NodePath("../InventoryComponent")
+metadata/_custom_type_script = "uid://da0h0td65cpne"
 
 [node name="InventoryComponent" type="Node" parent="." unique_id=1243270920]
 unique_name_in_owner = true
 script = ExtResource("3_g2jcq")
+inventory_size = 12
 metadata/_custom_type_script = "uid://di8sb25jpr57y"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=672404966]

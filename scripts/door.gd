@@ -6,9 +6,10 @@ class_name Door
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 func _on_interactable_area_interacted_with(interactor: Node3D) -> void:
-	var is_outside: bool = global_position.direction_to(interactor.global_position).z < 0
+	var entity: CharacterBody3D = interactor.get_parent_node_3d()
+	var is_outside: bool = global_position.direction_to(entity.global_position).z < 0
 	
-	if interactor is Player:
+	if entity is Player:
 		process_mode = Node.PROCESS_MODE_ALWAYS
 		get_tree().paused = true
 		animation_player.play("fade_in")

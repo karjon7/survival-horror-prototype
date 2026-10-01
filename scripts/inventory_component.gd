@@ -1,12 +1,13 @@
 extends Node
 class_name InventoryComponent
 
-var slot_datas: Array[SlotData] = []
-var inventory_size: int = 4
+@export var inventory_size: int = 4 : set = _set_inventory_size 
+
+var slot_datas: Array[SlotData] = [SlotData.new()]
 
 
-func _ready() -> void:
-	pass
+func _init() -> void:
+	_set_inventory_size(inventory_size)
 
 
 func has_item(item_data: ItemData) -> bool:
@@ -21,7 +22,7 @@ func add_item(item_data: ItemData, quantity: int = 1) -> int:
 	
 	#Find slots with same item data first
 	for slot in slot_datas:
-		if slot.item_data != item_data: continue
+		if not slot.is_empty() and slot.item_data != item_data: continue
 		var spaces_left: int = item_data.max_stack_size - slot.quantity
 		var amt_to_add: int = mini(spaces_left, remaining)
 		
@@ -37,6 +38,7 @@ func add_item(item_data: ItemData, quantity: int = 1) -> int:
 		
 		slot.item_data = item_data
 		slot.quantity = amt_to_add
+		remaining -= amt_to_add
 		
 		if remaining < 1: return remaining
 	

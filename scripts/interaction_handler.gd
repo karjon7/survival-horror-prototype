@@ -1,6 +1,5 @@
-extends Node
+extends InteractorComponent
 
-var current_interactable: InteractableArea
 var interaction_progress: float = 0.0
 var interacting: bool = false
 
@@ -26,7 +25,7 @@ func _process(delta: float) -> void:
 	%InteractionProgressBar.value = interaction_progress / current_interactable.interact_seconds
 	
 	if interaction_progress >= current_interactable.interact_seconds:
-		current_interactable.interact(get_parent())
+		current_interactable.interact(self)
 		
 		current_interactable = null
 		interacting = false

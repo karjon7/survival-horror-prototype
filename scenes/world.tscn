@@ -38,13 +38,16 @@ script/source = "extends CSGBox3D
 
 var times_interacted: int = 0
 
-func _on_interactable_area_interacted_with(_interactor: Node3D) -> void:
-	times_interacted += 1
+func _on_interactable_area_interacted_with(_interactor: InteractorComponent) -> void:
+	_interactor.inventory_component.add_item(SlotData.TEST_ITEM)
+	queue_free()
 	
-	var text:= \"Ive been interacted with %s times!\" \\
-		if times_interacted != 1 else \"Ive been interacted with %s time!\"
-	
-	$Label3D.text = text % times_interacted
+	#times_interacted += 1
+	#
+	#var text:= \"Ive been interacted with %s times!\" \\
+		#if times_interacted != 1 else \"Ive been interacted with %s time!\"
+	#
+	#$Label3D.text = text % times_interacted
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhunq"]

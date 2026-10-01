@@ -12,5 +12,5 @@ func _ready() -> void:
 	collision_layer = INTERACTABLE_LAYER
 
 
-func interact(interactor: Node3D) -> void:
+func interact(interactor: InteractorComponent) -> void:
 	interacted_with.emit(interactor)
