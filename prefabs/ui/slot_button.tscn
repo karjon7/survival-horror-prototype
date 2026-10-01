@@ -1,0 +1,137 @@
+[gd_scene format=3 uid="uid://brt7wjfxmx1s3"]
+
+[ext_resource type="Script" uid="uid://baxca5sxek4ni" path="res://scripts/ui/slot_button.gd" id="1_fmyts"]
+[ext_resource type="PackedScene" uid="uid://iixradab3o72" path="res://prefabs/ui/mesh_viewer.tscn" id="1_yskh4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yskh4"]
+bg_color = Color(0, 0, 0, 0.25)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fmyts"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_yskh4"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sgdm0"]
+bg_color = Color(0.5, 0.5, 0.5, 0.2509804)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mh8fc"]
+bg_color = Color(0, 0, 0, 0.25)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[node name="SlotButton" type="Button" unique_id=834539951]
+custom_minimum_size = Vector2(80, 80)
+offset_right = 75.0
+offset_bottom = 75.0
+size_flags_horizontal = 6
+size_flags_vertical = 6
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+script = ExtResource("1_fmyts")
+
+[node name="Panel" type="Panel" parent="." unique_id=2040581798]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yskh4")
+
+[node name="HighlightOverlay" type="Panel" parent="." unique_id=1518298826]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fmyts")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1883185657]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+
+[node name="QuantityLabel" type="Label" parent="MarginContainer" unique_id=1730178152]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 1
+text = "x99"
+label_settings = SubResource("LabelSettings_yskh4")
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[node name="MeshViewer" parent="." unique_id=40465373 instance=ExtResource("1_yskh4")]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+rotations_per_second = 0.3
+cam_distance = 3.0
+cam_pitch = 0.0
+
+[node name="LightenOverlay" type="Panel" parent="." unique_id=2027073607]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_sgdm0")
+
+[node name="DarkenOverlay" type="Panel" parent="." unique_id=957355951]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mh8fc")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=3 uid="uid://iixradab3o72"]
+
+[ext_resource type="Script" uid="uid://bwg2u6o1d1cjm" path="res://scripts/ui/mesh_viewer.gd" id="1_wb5as"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_wb5as"]
+
+[node name="MeshViewer" type="SubViewportContainer"]
+texture_filter = 1
+offset_right = 500.0
+offset_bottom = 500.0
+stretch = true
+script = ExtResource("1_wb5as")
+rotations_per_second = 0.2
+cam_distance = 3.5
+cam_pitch = -0.09999999999999998
+
+[node name="SubViewport" type="SubViewport" parent="."]
+own_world_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(500, 500)
+render_target_update_mode = 4
+
+[node name="3DWorld" type="Node3D" parent="SubViewport"]
+
+[node name="CamPivot" type="Node3D" parent="SubViewport/3DWorld"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 0.951057, 0.30901715, 0, -0.30901715, 0.951057, 0, 0, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/3DWorld/CamPivot"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
+fov = 35.0
+size = 2.905
+
+[node name="SpotLight3D" type="SpotLight3D" parent="SubViewport/3DWorld/CamPivot/Camera3D"]
+light_energy = 5.0
+shadow_enabled = true
+
+[node name="MeshHolder" type="Node3D" parent="SubViewport/3DWorld"]
+unique_name_in_owner = true
+transform = Transform3D(0.9244984, 0, 0.38117945, 0, 1, 0, -0.38117945, 0, 0.9244984, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SubViewport/3DWorld/MeshHolder"]
+mesh = SubResource("BoxMesh_wb5as")

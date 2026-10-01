@@ -25,6 +25,6 @@ func _set_item_data(new_item_data: ItemData) -> void:
 func _set_quantity(new_value: int) -> void:
 	quantity = new_value
 	
-	if not quantity > 0: 
+	if not quantity > 0 and item_data: 
 		item_data = null
 		quantity = 0
