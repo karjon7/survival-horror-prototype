@@ -36,7 +36,6 @@ metadata/_custom_type_script = "uid://da0h0td65cpne"
 [node name="InventoryComponent" type="Node" parent="." unique_id=1243270920]
 unique_name_in_owner = true
 script = ExtResource("3_g2jcq")
-inventory_size = 12
 metadata/_custom_type_script = "uid://di8sb25jpr57y"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=672404966]
@@ -181,7 +180,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GridContainer" type="GridContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=1198358645]
+[node name="SlotsContainer" type="GridContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer" unique_id=1198358645]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 6
@@ -190,31 +189,31 @@ theme_override_constants/h_separation = 5
 theme_override_constants/v_separation = 5
 columns = 3
 
-[node name="SlotButton" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=834539951 instance=ExtResource("8_rgeog")]
+[node name="SlotButton" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=834539951 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton2" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=129812395 instance=ExtResource("8_rgeog")]
+[node name="SlotButton2" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=129812395 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton3" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=380250489 instance=ExtResource("8_rgeog")]
+[node name="SlotButton3" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=380250489 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton4" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1365678419 instance=ExtResource("8_rgeog")]
+[node name="SlotButton4" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=1365678419 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton5" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=2086644382 instance=ExtResource("8_rgeog")]
+[node name="SlotButton5" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=2086644382 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton6" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=507914005 instance=ExtResource("8_rgeog")]
+[node name="SlotButton6" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=507914005 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton7" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1671742662 instance=ExtResource("8_rgeog")]
+[node name="SlotButton7" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=1671742662 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton8" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=1996370634 instance=ExtResource("8_rgeog")]
+[node name="SlotButton8" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=1996370634 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
-[node name="SlotButton9" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/GridContainer" unique_id=713852245 instance=ExtResource("8_rgeog")]
+[node name="SlotButton9" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer/ScrollContainer/SlotsContainer" unique_id=713852245 instance=ExtResource("8_rgeog")]
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer" unique_id=117351111]
@@ -275,12 +274,16 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1237220624]
+[node name="ItemNameLabel" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1237220624]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 text = "ITEM NAME (x99)"
 
-[node name="Label2" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1985702912]
+[node name="ItemDescriptionLabel" type="Label" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/VBoxContainer" unique_id=1985702912]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "ITEM DESCRIPTION"
+
+[connection signal="inventory_updated" from="InventoryComponent" to="UI/Inventory" method="refresh_player_slots"]

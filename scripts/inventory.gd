@@ -1,9 +1,43 @@
 extends Control
 
+const SLOT_BUTTON = preload("uid://brt7wjfxmx1s3")
 
-@onready var inventory: InventoryComponent = %InventoryComponent
-@onready var grid_container: GridContainer = %GridContainer
+@onready var player_inventory: InventoryComponent = %InventoryComponent
+@onready var slots_container: GridContainer = %SlotsContainer
+@onready var item_name_label: Label = %ItemNameLabel
+@onready var item_desc_label: Label = %ItemDescriptionLabel
+
+
+func _ready() -> void:
+	refresh_player_slots()
 
 
 func _process(delta: float) -> void:
 	pass
+
+
+func slot_selected(index: int) -> void:
+	var slot: SlotButton = slots_container.get_child(index)
+	
+	item_name_label.text = slot.slot_data.item_data.item_name #WOW, FIX THIS SUPER UGLY!!!
+
+
+func refresh_player_slots() -> void:
+	if not is_node_ready(): 
+		await ready
+	
+	while slots_container.get_child_count() < player_inventory.size:
+		var slot_instance: SlotButton = SLOT_BUTTON.instantiate()
+		
+		slots_container.add_child(slot_instance)
+	
+	for slot: SlotButton in slots_container.get_children():
+		if slot.get_index() + 1 > player_inventory.size: 
+			slot.queue_free()
+			continue
+		
+		var current_slot_data: SlotData = player_inventory.slot_datas[slot.get_index()]
+		
+		slot.slot_data = current_slot_data
+		if slot.pressed.get_connections().is_empty():
+			slot.pressed.connect(slot_selected.bind(slot.get_index()))

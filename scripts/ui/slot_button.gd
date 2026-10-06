@@ -10,6 +10,17 @@ var slot_data: SlotData : set = _set_slot_data
 @onready var darken_overlay: Panel = %DarkenOverlay
 
 
+func update_slot() -> void:
+	if not slot_data or slot_data.is_empty():
+		quantity_label.visible = false
+		mesh_viewer.mesh = null
+		return
+	
+	mesh_viewer.mesh = slot_data.item_data.mesh
+	quantity_label.text = "x%s" % slot_data.quantity 
+	quantity_label.visible = slot_data.quantity != 1
+
+
 func highlight() -> void:
 	highlight_overlay.show()
 
@@ -27,16 +38,12 @@ func undarken() -> void:
 
 
 func _set_slot_data(new_slot_data: SlotData) -> void:
+	if slot_data: slot_data.updated.disconnect(update_slot)
+	
 	slot_data = new_slot_data
 	
-	mesh_viewer.mesh = null
-	quantity_label.visible = false
-	
-	if not slot_data.is_empty():
-		mesh_viewer.mesh = slot_data.item_data.mesh_preview
-		quantity_label.text = "x%s" % slot_data.quantity 
-		quantity_label.visible = slot_data.quantity > 1 \
-			if not slot_data.item_data.display_stack_value else true
+	if slot_data: slot_data.updated.connect(update_slot)
+	update_slot()
 
 
 func _on_mouse_entered() -> void:
