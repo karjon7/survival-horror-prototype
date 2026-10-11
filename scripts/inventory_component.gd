@@ -3,7 +3,7 @@ class_name InventoryComponent
 
 signal inventory_updated
 
-@export var size: int = 3 : set = _set_size 
+@export var size: int = 12 : set = _set_size 
 @export var slot_datas: Array[SlotData] = []
 
 
@@ -50,6 +50,7 @@ func add_item(item_data: ItemData, quantity: int = 1) -> int:
 		
 		if not remaining > 0: break
 	
+	#Returns excess amt
 	return remaining
 
 
@@ -60,7 +61,7 @@ func remove_item(item_data: ItemData, quantity: int = 1) -> int:
 	
 	for slot in reversed_slot_datas:
 		if slot.item_data != item_data: continue
-		var amt_to_remove: int = mini(slot.quantity, quantity)
+		var amt_to_remove: int = mini(slot.quantity, remaining)
 		
 		slot.quantity -= amt_to_remove
 		remaining -= amt_to_remove
@@ -68,6 +69,7 @@ func remove_item(item_data: ItemData, quantity: int = 1) -> int:
 		
 		if not remaining > 0: break
 	
+	#Returns missing amt
 	return remaining
 
 
