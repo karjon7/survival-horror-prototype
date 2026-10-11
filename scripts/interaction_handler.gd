@@ -7,8 +7,8 @@ var interacting: bool = false
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("primary_fire"): interacting = true
-	if event.is_action_released("primary_fire"): interacting = false
+	if event.is_action_pressed("interact"): interacting = true
+	if event.is_action_released("interact"): interacting = false
 
 
 func _process(delta: float) -> void:
