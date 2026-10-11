@@ -36,18 +36,23 @@ albedo_color = Color(1, 0, 0, 1)
 resource_name = "InteractionTest"
 script/source = "extends CSGBox3D
 
-var times_interacted: int = 0
+const COOKIE_ITEM = preload(\"uid://dyuchakxuk2r5\")
 
-func _on_interactable_area_interacted_with(_interactor: InteractorComponent) -> void:
-	_interactor.inventory_component.add_item(SlotData.TEST_ITEM)
-	queue_free()
+var cookies_left: int = 12
+
+
+func _process(delta: float) -> void:
+	var text:= \"%s cookies remaining.\" \\
+		if cookies_left != 1 else \"%s cookies remaining.\"
 	
-	#times_interacted += 1
-	#
-	#var text:= \"Ive been interacted with %s times!\" \\
-		#if times_interacted != 1 else \"Ive been interacted with %s time!\"
-	#
-	#$Label3D.text = text % times_interacted
+	$Label3D.text = text % cookies_left
+
+
+func _on_interactable_area_interacted_with(interactor: InteractorComponent) -> void:
+	cookies_left -= 1
+	cookies_left += interactor.inventory_component.add_item(COOKIE_ITEM)
+	
+	if cookies_left <= 0: queue_free()
 "
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhunq"]
@@ -120,7 +125,7 @@ script = SubResource("GDScript_ht1c8")
 
 [node name="InteractableArea" type="Area3D" parent="InteractCube" unique_id=438176624]
 script = ExtResource("3_4wyf3")
-interactable_name = "Interact Cube"
+interactable_name = "Cookie Jar"
 metadata/_custom_type_script = "uid://bj6vlq33pqopp"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractCube/InteractableArea" unique_id=1062453357]

@@ -5,8 +5,8 @@ class_name Door
 @onready var fade: ColorRect = $DoorUI/Fade
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-func _on_interactable_area_interacted_with(interactor: Node3D) -> void:
-	var entity: CharacterBody3D = interactor.get_parent_node_3d()
+func _on_interactable_area_interacted_with(interactor: InteractorComponent) -> void:
+	var entity: CharacterBody3D = interactor.get_owner()
 	var is_outside: bool = global_position.direction_to(entity.global_position).z < 0
 	
 	if entity is Player:
@@ -15,7 +15,7 @@ func _on_interactable_area_interacted_with(interactor: Node3D) -> void:
 		animation_player.play("fade_in")
 		await animation_player.animation_finished
 		
-		interactor.global_position = to_global(nav_link.end_position) \
+		entity.global_position = to_global(nav_link.end_position) \
 			if is_outside else to_global(nav_link.start_position)
 		
 		animation_player.play("fade_out")
