@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cv2xvbxuj6wi0" path="res://prefabs/light.tscn" id="2_4wyf3"]
 [ext_resource type="Script" uid="uid://bj6vlq33pqopp" path="res://scripts/interactable_area.gd" id="3_4wyf3"]
 [ext_resource type="PackedScene" uid="uid://b55xfkuoepfve" path="res://prefabs/door.tscn" id="4_k0juu"]
+[ext_resource type="Script" uid="uid://d4ep5l7x7kwwa" path="res://scripts/grabbable_object.gd" id="5_71j4m"]
 
 [sub_resource type="Gradient" id="Gradient_f3sb7"]
 interpolation_mode = 2
@@ -58,12 +59,20 @@ func _on_interactable_area_interacted_with(interactor: InteractorComponent) -> v
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhunq"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="BoxMesh" id="BoxMesh_bhunq"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_riqys"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_riqys"]
+
 [node name="World" type="Node3D" unique_id=1312274866]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1533605380]
 environment = SubResource("Environment_tlwt5")
 
 [node name="Player" parent="." unique_id=1879227099 instance=ExtResource("1_rwgxs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
 
 [node name="CSGCombiner3D2" type="CSGCombiner3D" parent="." unique_id=153414490]
 use_collision = true
@@ -146,5 +155,19 @@ size = Vector3(7, 1, 1.5)
 
 [node name="Door" parent="." unique_id=1482527046 instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 1.25)
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=34469332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2027438, 0)
+collision_layer = 9
+collision_mask = 7
+script = ExtResource("5_71j4m")
+metadata/_custom_type_script = "uid://d4ep5l7x7kwwa"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=646720820]
+mesh = SubResource("BoxMesh_bhunq")
+surface_material_override/0 = SubResource("StandardMaterial3D_riqys")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1598517401]
+shape = SubResource("BoxShape3D_riqys")
 
 [connection signal="interacted_with" from="InteractCube/InteractableArea" to="InteractCube" method="_on_interactable_area_interacted_with"]
