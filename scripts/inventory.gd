@@ -22,6 +22,10 @@ func _process(delta: float) -> void:
 func slot_selected(index: int) -> void:
 	var slot: SlotButton = slots_container.get_child(index)
 	
+	if slot.slot_data.is_empty():
+		clear_slot_selected()
+		return
+	
 	mesh_viewer.mesh = slot.slot_data.item_data.mesh
 	item_name_label.text = slot.slot_data.item_data.item_name 
 	item_desc_label.text = slot.slot_data.item_data.description

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cur1ip7up5y1g" path="res://scripts/player.gd" id="1_r66lb"]
 [ext_resource type="Script" uid="uid://da0h0td65cpne" path="res://scripts/interaction_handler.gd" id="2_1txc5"]
+[ext_resource type="Script" uid="uid://df3iohxhs0ias" path="res://scripts/grabbable_handler.gd" id="2_rgeog"]
 [ext_resource type="Script" uid="uid://di8sb25jpr57y" path="res://scripts/inventory_component.gd" id="3_g2jcq"]
 [ext_resource type="Script" uid="uid://dboo8rvds5ghm" path="res://scripts/ui/player_ui.gd" id="3_ht1c8"]
 [ext_resource type="Texture2D" uid="uid://b8w4m2rgf1roh" path="res://icon.svg" id="4_1txc5"]
@@ -27,6 +28,9 @@ corner_radius_bottom_left = 3
 [node name="Player" type="CharacterBody3D" unique_id=1879227099]
 collision_layer = 2
 script = ExtResource("1_r66lb")
+
+[node name="GrabbableHandler" type="Node" parent="." unique_id=654311099]
+script = ExtResource("2_rgeog")
 
 [node name="InteractionHandler" type="Node" parent="." unique_id=2045443146 node_paths=PackedStringArray("inventory_component")]
 script = ExtResource("2_1txc5")
@@ -71,6 +75,15 @@ unique_name_in_owner = true
 target_position = Vector3(0, 0, -1.5)
 collision_mask = 9
 collide_with_areas = true
+
+[node name="GrabArm" type="SpringArm3D" parent="Camera3D" unique_id=627483769]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+collision_mask = 5
+spring_length = 2.0
+
+[node name="GrabAnchor" type="Marker3D" parent="Camera3D/GrabArm" unique_id=667360310]
+unique_name_in_owner = true
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=1034527378]
 unique_name_in_owner = true
@@ -250,24 +263,28 @@ layout_mode = 2
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 text = "PLACEHOLDER"
 
 [node name="Button2" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=577532185]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 text = "PLACEHOLDER"
 
 [node name="Button3" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=1563852872]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 text = "PLACEHOLDER"
 
 [node name="Button4" type="Button" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer/PanelContainer/MarginContainer/GridContainer" unique_id=2101501592]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_vertical = 3
+focus_mode = 0
 text = "PLACEHOLDER"
 
 [node name="MarginContainer" type="MarginContainer" parent="UI/Inventory/VBoxContainer/MarginContainer/VBoxContainer/PanelContainer/HBoxContainer" unique_id=1270836816]
